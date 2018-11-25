@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h3 v-text="message">{{message}}</h3>
+    <h3 v-text="message">{{message}}--------</h3>
     <card :person="person1"></card>
   </div>
 </template>
