@@ -1,56 +1,91 @@
 <template>
   <div class="transition">
-    <h3>{{message}}</h3>
-    <card :person="person1"></card>
+    <div>
+      <button @click="visible = !visible">Toggle</button>
+      <button @click="shuffle">Shuffle</button>
+    </div>
+    <div class="row inout">
+      <!--<transition-->
+        <!--appear-->
+        <!--appear-class="appear"-->
+        <!--appear-to-class="appear-to"-->
+        <!--appear-active-class="appear-active">-->
+        <!--<p class="toggle" v-if="visible">visible</p>-->
+      <!--</transition>-->
+      <transition name="slide-fade" mode="out-in">
+        <table v-if="visible">
+          <tr><td>td</td></tr>
+        </table>
+        <p v-else>Sorry, no items found.</p>
+      </transition>
+    </div>
+    <div class="row group">
+      <transition-group name="flip-list" tag="ul">
+        <li v-for="item in items" v-bind:key="item">
+          {{item}}
+        </li>
+      </transition-group>
+    </div>
   </div>
 </template>
 
 <script>
-  import card from '../components/card.vue'
+import _ from 'lodash'
 
-  export default {
-    components: {
-      card
-    },
-    data () {
-      return {
-        message: 'message',
-        code: 666666,
-        person1: {
-          name: 'Tom',
-          age: '23',
-          id: 't6adf6732831',
-          desc: 'some random guy',
-          hobbies: 'eat'
-        }
-      }
-    },
-    computed: {
-      cardStyle () {
-        return {
-          fontSize: `${this.fontSize}px`
-        }
-      }
-    },
-    methods: {
-      overflowHandler (payload) {
-        console.log(payload)
-      },
-      handler (e) {
-        console.log(e.currentTarget)
-      },
-      submit (e) {
-        console.log(e.key)
-      }
-    },
-    mounted () {
-      window['home'] = this
+export default {
+  data () {
+    return {
+      visible: true,
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
+  },
+  methods: {
+    shuffle: function () {
+      this.items = _.shuffle(this.items)
     }
   }
+}
 </script>
 
 <style scoped>
   .transition {
     padding: 10px;
+  }
+  .row {
+    padding: 10px;
+    border: 1px dashed #999;
+    margin: 8px 0
+  }
+  .toggle {
+    display: inline-block;
+    padding: 4px;
+    background-color: green;
+    color: #fff;
+  }
+
+  .appear {
+    background-color: pink;
+    font-size: 22px
+  }
+  .appear-to {
+    transform: scale(.5)
+  }
+  .appear-active {
+    transition: all 3s
+  }
+
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 5.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+  .flip-list-move {
+    transition: transform 1s;
   }
 </style>
