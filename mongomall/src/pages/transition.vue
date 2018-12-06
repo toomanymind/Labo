@@ -12,7 +12,7 @@
         <!--appear-active-class="appear-active">-->
         <!--<p class="toggle" v-if="visible">visible</p>-->
       <!--</transition>-->
-      <transition name="slide-fade" mode="out-in">
+      <transition name="slide-fade" mode="out-in" @shuffle=shuffleHandler>
         <table v-if="visible">
           <tr><td>td</td></tr>
         </table>
@@ -41,7 +41,11 @@ export default {
   },
   methods: {
     shuffle: function () {
+      this.$emit('shuffle', 'shuffle')
       this.items = _.shuffle(this.items)
+    },
+    shuffleHandler: function (payload) {
+      console.log(payload)
     }
   }
 }
