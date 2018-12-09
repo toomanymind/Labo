@@ -6,7 +6,7 @@ export default {
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    console.log('app created and cache logs by setStorageSync')
+    console.log('app created')
   }
 }
 </script>
@@ -20,12 +20,5 @@ export default {
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-}
-/* this rule will be remove */
-* {
-  transition: width 2s;
-  -moz-transition: width 2s;
-  -webkit-transition: width 2s;
-  -o-transition: width 2s;
 }
 </style>
